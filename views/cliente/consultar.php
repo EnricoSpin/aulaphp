@@ -18,6 +18,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    include_once '../models/Cliente.php';
+                    $cli = new Cliente();
+                    $dados = $cli->listar();
+                    foreach($dados as $mostrar) {
+                    ?>
+                    <tr>
+                        <td><?= $mostrar['var_id'] ?></td>
+                        <td><?= $mostrar['var_nome'] ?></td>
+                        <td><?= $mostrar['var_email'] ?></td>
+                        <td>Editar e Excluir</td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

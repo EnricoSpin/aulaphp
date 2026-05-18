@@ -18,6 +18,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    include_once '../models/Fornecedor.php';
+                    $forn = new Fornecedor();
+                    $dados = $forn->listar();
+                    foreach($dados as $mostrar) {
+                    ?>
+                    <tr>
+                        <td><?= $mostrar['var_id'] ?></td>
+                        <td><?= $mostrar['var_nome'] ?></td>
+                        <td><?= $mostrar['var_cidade'] ?></td>
+                        <td>Editar e Excluir</td>
+                    </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

@@ -30,5 +30,17 @@ class Fornecedor {
             echo $erro->getMessage();
         }
     }
+
+    public function listar()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "CALL listar_fornecedor()";
+            $executar = $this->conn->prepare($sql);
+            return $executar->execute() == 1 ? $executar->fetchAll() : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
 }
 ?>

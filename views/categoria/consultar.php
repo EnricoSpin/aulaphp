@@ -14,7 +14,6 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Informações</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>

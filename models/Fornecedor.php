@@ -7,7 +7,7 @@ class Fornecedor {
     private $id;
     private $nome;
     private $cidade;
-    private $conn
+    private $conn;
 
     public function getId()     { return $this->id; } //
     public function getNome()   { return $this->nome; }
@@ -35,8 +35,9 @@ class Fornecedor {
     {
         try {
             $this->conn = new Conn();
-            $sql = "CALL listar_fornecedor()";
+            $sql = "CALL listar_fornecedor(?)";
             $executar = $this->conn->prepare($sql);
+            
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
             echo $erro->getMessage();

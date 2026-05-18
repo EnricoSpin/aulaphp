@@ -7,7 +7,7 @@ class Cliente{
     private $id;
     private $nome;
     private $email;
-    private $conn
+    private $conn;
 
     public function getId() {return $this->id; } //
     public function getNome() {return $this->nome;}
@@ -35,8 +35,9 @@ class Cliente{
     {
         try {
             $this->conn = new Conn();
-            $sql = "CALL listar_cliente()";
+            $sql = "CALL listar_cliente(?)";
             $executar = $this->conn->prepare($sql);
+
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
             echo $erro->getMessage();

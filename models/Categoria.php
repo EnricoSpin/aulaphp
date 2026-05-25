@@ -41,7 +41,7 @@ class Categoria
             $this->conn = new Conn();
             $sql = "CALL listar_categoria(?)";
             $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $var_id->id);
+            $executar->bindValue(1, $var_id);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
             echo $erro->getMessage();

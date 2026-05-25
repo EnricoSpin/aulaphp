@@ -1,6 +1,6 @@
 <?php
 
-include_once "Coon.php";
+include_once "Conn.php";
 
 class Cliente{
 
@@ -20,7 +20,7 @@ class Cliente{
     public function salvar() {
         try {
             $this->conn = new Conn();
-            $sql = "CALL salvar_categoria(?, ?, ?)";
+            $sql = "CALL salvar_cliente(?, ?, ?)";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             $executar->bindValue(2, mb_strtoupper($this->nome));
@@ -31,13 +31,13 @@ class Cliente{
         }
     }
 
-    public function listar()
+    public function listar($var_id)
     {
         try {
             $this->conn = new Conn();
             $sql = "CALL listar_cliente(?)";
             $executar = $this->conn->prepare($sql);
-
+            $executar -> bindValue(1, $var_id);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
             echo $erro->getMessage();

@@ -4,7 +4,7 @@ USE aula_php;
 CREATE TABLE categoria(
     var_id INT PRIMARY KEY,
     var_nome VARCHAR(100),
-    var_informacoes VARCHAR(255),
+    var_informacoes VARCHAR(255)
 );
 
 CREATE TABLE cliente(
@@ -21,15 +21,15 @@ CREATE TABLE fornecedor(
 
 DELIMITER $$
 CREATE PROCEDURE salvar_categoria(
-    var_id INT PRIMARY KEY,
-    var_nome VARCHAR(100),
-    var_informacoes VARCHAR(255),
+    IN var_id INT,
+    IN var_nome VARCHAR(100),
+    IN var_informacoes VARCHAR(255)
 )
 BEGIN
     INSERT INTO categoria(var_id, var_nome, var_informacoes)
     VALUES (var_id, var_nome, var_informacoes);
 END$$
-DELIMITER;
+DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE salvar_cliente(
@@ -55,24 +55,27 @@ BEGIN
 END$$
 DELIMITER ;
 
-DELIMITER$$
-CREATE PROCEDURE listar_categoria()
-BEGIN
-    SELECT var_id, var_nome, var_informacoes FROM categoria;
-END$$
-DELIMITER;
-
 DELIMITER $$
-CREATE PROCEDURE listar_cliente()
+CREATE PROCEDURE listar_categoria(IN p_id INT)
 BEGIN
-    SELECT var_id, var_nome, var_email FROM cliente;
+    SELECT var_id, var_nome, var_informacoes FROM categoria
+    WHERE p_id IS NULL OR var_id = p_id;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE listar_fornecedor()
+CREATE PROCEDURE listar_cliente(IN p_id INT)
 BEGIN
-    SELECT var_id, var_nome, var_cidade FROM fornecedor;
+    SELECT var_id, var_nome, var_email FROM cliente
+    WHERE p_id IS NULL OR var_id = p_id;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE listar_fornecedor(IN p_id INT)
+BEGIN
+    SELECT var_id, var_nome, var_cidade FROM fornecedor
+    WHERE p_id IS NULL OR var_id = p_id; 
 END$$
 DELIMITER ;
 
@@ -85,6 +88,6 @@ CALL salvar_cliente(2, 'Pedro', 'pedro@email.com');
 CALL salvar_fornecedor(123, 'Fornecedor De Alimentos', 'Salto');
 CALL salvar_fornecedor(234, 'Fornecedor de Peças Automotivas ', 'Sorocaba');
 
-CALL listar_categoria();
-CALL listar_cliente();
-CALL listar_fornecedor();
+CALL listar_categoria(null);
+CALL listar_cliente(null);
+CALL listar_fornecedor(null);

@@ -24,12 +24,12 @@
                     foreach($dados as $mostrar) {
                     ?>
                     <tr>
-                        <td><?= $mostrar['id'] ?> //php de uma linha</td>
-                        <td><?= $mostrar['nome'] ?></td>
-                        <td><?= $mostrar['informacoes'] ?></td>
+                        <td><?= $mostrar['var_id'] ?></td>
+                        <td><?= $mostrar['var_nome'] ?></td>
+                        <td><?= $mostrar['var_informacoes'] ?></td>
                         <td>Editar e Excluir</td>
                     </tr>
-                    <?php
+                    <?php //php de uma linha dentro da tabela
                     }
                     ?>
                 </tbody>

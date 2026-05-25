@@ -21,7 +21,7 @@
                     <?php
                     include_once '../models/Fornecedor.php';
                     $forn = new Fornecedor();
-                    $dados = $forn->listar();
+                    $dados = $forn->listar(null);
                     foreach($dados as $mostrar) {
                     ?>
                     <tr>

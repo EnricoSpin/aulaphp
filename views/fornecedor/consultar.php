@@ -28,7 +28,14 @@
                         <td><?= $mostrar['var_id'] ?></td>
                         <td><?= $mostrar['var_nome'] ?></td>
                         <td><?= $mostrar['var_cidade'] ?></td>
-                        <td>Editar e Excluir</td>
+                        <td>
+                            <a href="?p=excluir/fornecedor&id=<?= $mostrar['id'] ?>"
+                            class="btn btn-danger"
+                            title="Excluir"
+                            onclick="return confirm('Tem certeza que deseja excluir?')">
+                                <i class="bi bi-x-circle"></i>
+                            </a>                           
+                        </td>
                     </tr>
                     <?php
                     }

@@ -47,5 +47,18 @@ class Categoria
             echo $erro->getMessage();
         }
     }
+
+    public function excluir()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
+            $executar = $this->conn->prepare($sql);
+            $executar->bindValue(1, $this->id);
+            return $executar->execute() == 1 ? true : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }    
 }
 ?>

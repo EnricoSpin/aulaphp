@@ -13,8 +13,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>CNPJ</th>
-                        <th>Ações</th>
+                        <th>Cidade</th>
                     </tr>
                 </thead>
                 <tbody>

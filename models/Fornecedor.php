@@ -9,13 +9,13 @@ class Fornecedor {
     private $cidade;
     private $conn;
 
-    public function getId()     { return $this->id; } //
+    public function getId()     { return $this->id; }
     public function getNome()   { return $this->nome; }
     public function getCidade() { return $this->cidade; }
 
-    public function setId($id)         { $this->id = $id; }
-    public function setNome($nome)     { $this->nome = $nome; }
-    public function setCidade($cidade) { $this->cidade = $cidade; }
+    public function setId($id) { $this->id = $id; return $this;}
+    public function setNome($nome) { $this->nome = $nome; return $this;}
+    public function setCidade($cidade) { $this->cidade = $cidade; return $this;}
 
     public function salvar() {
         try {

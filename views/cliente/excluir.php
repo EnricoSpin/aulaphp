@@ -2,11 +2,11 @@
     $id = filter_input(INPUT_GET, 'id');
 
     if ($id) {
-        include_once '../models/Categoria.php';
-        $cat = new Categoria();
-        $cat->setId($id);
+        include_once '../models/Cliente.php';
+        $cli = new Cliente();
+        $cli->setId($id);
 
-        if ($cat->excluir()) {
+        if ($cli->excluir()) {
     ?>
             <div class="alert alert-primary" role="alert">
                 Excluído com sucesso
@@ -15,4 +15,4 @@
         }
     }
     ?>
-    <meta http-equiv="refresh" CONTENT="1;URL=?p=categorias">
+    <meta http-equiv="refresh" CONTENT="1;URL=?p=clientes">

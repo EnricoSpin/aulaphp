@@ -12,12 +12,11 @@ class Categoria
     private $conn;
 
     public function getId() {return $this->id;}
-    public function setId($id) {$this->id = $id;return $this;}
-
     public function getNome() {return $this->nome;}
-    public function setNome($nome) {$this->nome = $nome;return $this;}
-
     public function getInformacoes() {return $this->informacoes;}
+    
+    public function setId($id) {$this->id = $id;return $this;}
+    public function setNome($nome) {$this->nome = $nome;return $this;}
     public function setInformacoes($informacoes) {$this->informacoes = $informacoes;return $this;}
 
     public function salvar()

@@ -20,6 +20,11 @@
                     <i class="bi bi-list-task"></i> Consultar Fornecedores
                 </a>
             </li>
+            <li>
+                <a class="nav-link" href="?p=funcionarios">
+                    <i class="bi bi-list-task"> Consultar Funcionários</i>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

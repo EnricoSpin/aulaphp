@@ -11,9 +11,9 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">CNPJ</label>
+            <label class="col-sm-2 col-form-label">Cidade</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="txtcnpj" placeholder="CNPJ">
+                <input type="text" class="form-control" name="txtcidade" placeholder="Cidade">
             </div>
         </div>
 
@@ -30,16 +30,16 @@
 <?php
 if(filter_input(INPUT_POST, 'btnsalvar')){
     $nome = filter_input(INPUT_POST, 'txtnome', FILTER_SANITIZE_SPECIAL_CHARS);
-    $cnpj = filter_input(INPUT_POST, 'txtcnpj', FILTER_SANITIZE_SPECIAL_CHARS);
+    $cidade = filter_input(INPUT_POST, 'txtcidade', FILTER_SANITIZE_SPECIAL_CHARS);
     
     include_once '../models/Fornecedor.php';
 
-    $for = new Fornecedor();
-    $for->setId(NULL);
-    $for->setNome($nome);
-    $for->setCnpj($cnpj);
+    $forn = new Fornecedor();
+    $forn->setId(NULL);
+    $forn->setNome($nome);
+    $forn->setCidade($cidade);
 
-    if($for->salvar()){
+    if($forn->salvar()){
 ?>
         <div class="alert alert-primary mt-3">Fornecedor cadastrado com sucesso</div>
         <meta http-equiv="refresh" content="0.2;URL=?p=fornecedores">

@@ -8,6 +8,7 @@
         private $email;
         private $cargo;
         private $conn;
+        private $tabela = "funcionario";
 
         public function getId() {return $this -> id;}
         public function getNome() {return $this -> nome;}
@@ -30,6 +31,7 @@
                 $executar->bindValue(4, mb_strtoupper($this->cargo));                
                 return $executar->execute() == 1 ? true : false;
             } catch (PDOException $erro) {
+                echo "Erro";
                 echo $erro->getMessage();
             }            
         }
@@ -49,7 +51,7 @@
         public function excluir() {
             try {
                 $this->conn = new Conn();
-                $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
+                $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
                 $executar = $this->conn->prepare($sql);
                 $executar->bindValue(1, $this->id);
                 return $executar->execute() == 1 ? true : false;

@@ -1,7 +1,14 @@
 <h3 class="mt-3 text-primary"> Funcionário </h3> 
 <div class="card shadow mt-3"> 
     <form method="post" name="formsalvar" id="formSalvar" class="m-3" enctype="multipart/form-data"> 
-        
+
+        <div class="form-group row"> 
+            <label for="txtid" class="col-sm-2 col-form-label"> ID </label> 
+            <div class="col-sm-10"> 
+                <input type="text" class="form-control" id="txtid" name="txtid" placeholder="ID do funcionário" value="" required> 
+            </div> 
+        </div>     
+
         <div class="form-group row"> 
             <label for="txtnome" class="col-sm-2 col-form-label"> Nome </label> 
             <div class="col-sm-10"> 
@@ -36,7 +43,8 @@
 <?php 
 // Verificar se o botão btnsalvar foi acionado 
 if(filter_input(INPUT_POST, 'btnsalvar')){ 
-    
+
+    $id = filter_input(INPUT_POST, 'txtid');
     $nome = filter_input(INPUT_POST, 'txtnome'); 
     $email = filter_input(INPUT_POST, 'txtemail'); 
     $cargo = filter_input(INPUT_POST, 'txtcargo'); 
@@ -48,7 +56,7 @@ if(filter_input(INPUT_POST, 'btnsalvar')){
     $func = new Funcionario(); 
     
     // Enviando os dados do form aos atributos da classe 
-    $func->setId(NULL); 
+    $func->setId($id); 
     $func->setNome($nome); 
     $func->setEmail($email); 
     $func->setCargo($cargo); 
@@ -59,7 +67,7 @@ if(filter_input(INPUT_POST, 'btnsalvar')){
         <div class="alert alert-primary mt-3" role="alert"> 
             Cadastro de funcionário efetuado com sucesso! 
         </div> 
-        <meta http-equiv="refresh" content="0.5;URL=?p=funcionario/funcionarios"> 
+        <meta http-equiv="refresh" content="0.5;URL=?p=funcionarios"> 
         <?php 
     } else { 
         ?> 

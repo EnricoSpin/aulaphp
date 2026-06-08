@@ -29,7 +29,7 @@
                         <td><?= $mostrar['var_nome'] ?></td>
                         <td><?= $mostrar['var_email'] ?></td>
                         <td>
-                            <a href="?p=excluir/cliente&id=<?= $mostrar['id'] ?>"
+                            <a href="?p=excluir/cliente&id=<?= $mostrar['var_id'] ?>"
                             class="btn btn-danger"
                             title="Excluir"
                             onclick="return confirm('Tem certeza que deseja excluir?')">

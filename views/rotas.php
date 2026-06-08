@@ -11,7 +11,7 @@
         'add/fornecedor' => 'fornecedor/salvar.php',
         'add/funcionario' => 'funcionario/salvar.php',
         'excluir/categoria' => 'categoria/excluir.php',
-        'excluir/cliente' => 'cliente/exlcuir.php',
+        'excluir/cliente' => 'cliente/excluir.php',
         'excluir/fornecedor' => 'fornecedor/excluir.php',
         'excluir/funcionario' => 'funcionario/excluir.php'
     ];

@@ -8,6 +8,7 @@ class Fornecedor {
     private $nome;
     private $cidade;
     private $conn;
+    private $tabela = "fornecedor";
 
     public function getId()     { return $this->id; }
     public function getNome()   { return $this->nome; }
@@ -48,7 +49,7 @@ class Fornecedor {
     {
         try {
             $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
+            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? true : false;

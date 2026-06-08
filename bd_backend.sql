@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS aula_php;
 CREATE DATABASE aula_php;
 USE aula_php;
 
@@ -103,7 +104,9 @@ DELIMITER $$
 CREATE PROCEDURE listar_funcionario (IN p_id INT)
 BEGIN
     SELECT var_id, var_nome, var_email, var_cargo FROM funcionario 
-    WHERE p_id IS NULL OR var_id = p_id
+    WHERE p_id IS NULL OR var_id = p_id;
+END$$
+DELIMITER ;
 
 CALL salvar_categoria(100, 'Veículos', 'Carros');
 CALL salvar_categoria(200, 'Produtos', 'Alimentos');
@@ -114,8 +117,8 @@ CALL salvar_cliente(2, 'Pedro', 'pedro@email.com');
 CALL salvar_fornecedor(123, 'Fornecedor De Alimentos', 'Salto');
 CALL salvar_fornecedor(234, 'Fornecedor de Peças Automotivas ', 'Sorocaba');
 
-CALL salvar_funcionario(011, 'Maria', 'maria@gmail.com', 'Desenvolvedora Front-End')
-CALL salvar_funcionario(028, 'Caio', 'caio@gmail.com', 'Analista de Dados')
+CALL salvar_funcionario(101, 'Maria', 'maria@gmail.com', 'Desenvolvedora Front-End');
+CALL salvar_funcionario(208, 'Caio', 'caio@gmail.com', 'Analista de Dados');
 
 CALL listar_categoria(null);
 CALL listar_cliente(null);

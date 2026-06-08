@@ -7,6 +7,23 @@
     <form method="post" name="formsalvar" id="formSalvar" class="m-3" enctype="multipart/form-data">
 
         <div class="form-group row">
+            <label for="txtid" class="col-sm-2 col-form-label">
+                ID
+            </label>
+
+            <div class="col-sm-10">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="txtid" 
+                    name="txtid" 
+                    placeholder="ID" 
+                    value=""
+                >
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label for="txtnome" class="col-sm-2 col-form-label">
                 Nome
             </label>
@@ -17,7 +34,7 @@
                     class="form-control" 
                     id="txtnome" 
                     name="txtnome" 
-                    placeholder="Categoria" 
+                    placeholder="Nome" 
                     value=""
                 >
             </div>
@@ -60,13 +77,14 @@
 <?php
     //verificar se o botão btnsalvar foi acionado
     if(filter_input(INPUT_POST, 'btnsalvar')){
+        $id = filter_input(INPUT_POST, 'txtid');
         $nome = filter_input(INPUT_POST, 'txtnome');
         $info = filter_input(INPUT_POST, 'txtinformacoes');
         //Acesso à class (em models)
         include_once '../models/Categoria.php'; //Ver a classe
         $cat = new Categoria(); //Acessar oq é publico na classe
         //enviando os dados do form aos atributos da classe
-        $cat->setId(NULL);
+        $cat->setId($id);
         $cat->setNome($nome);
         $cat->setInformacoes($info);
         // form -> vars -> sets -> atributos
@@ -77,7 +95,7 @@
             <div class="alert alert-primary mt-3" role="alert">
                 Categoria - cadastro efetuado com sucesso
             </div>
-            <meta http-equiv="refresh" content="0.2;URL=?p=categoria/categorias">
+            <meta http-equiv="refresh" content="0.2;URL=?p=categorias">
         <?php
         } else{
         ?>

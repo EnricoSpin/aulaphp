@@ -6,7 +6,7 @@
         $forn = new Fornecedor();
         $forn->setId($id);
 
-        if ($for->excluir()) {
+        if ($forn->excluir()) {
     ?>
             <div class="alert alert-primary" role="alert">
                 Excluído com sucesso

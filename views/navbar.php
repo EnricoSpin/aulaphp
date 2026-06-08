@@ -22,7 +22,7 @@
             </li>
             <li>
                 <a class="nav-link" href="?p=funcionarios">
-                    <i class="bi bi-list-task"> Consultar Funcionários</i>
+                    <i class="bi bi-list-task"></i> Consultar Funcionários
                 </a>
             </li>
         </ul>

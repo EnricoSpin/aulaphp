@@ -10,6 +10,8 @@ class Categoria
     private $nome;
     private $informacoes;
     private $conn;
+    private $tabela = "categoria";
+
 
     public function getId() {return $this->id;}
     public function getNome() {return $this->nome;}
@@ -51,7 +53,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
+            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? true : false;

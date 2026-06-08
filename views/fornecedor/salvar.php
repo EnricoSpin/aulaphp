@@ -4,6 +4,13 @@
     <form method="post" name="formSalvar" id="formSalvar" class="m-3">
 
         <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="txtid" placeholder="ID">
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nome</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="txtnome" placeholder="Nome">
@@ -29,13 +36,14 @@
 
 <?php
 if(filter_input(INPUT_POST, 'btnsalvar')){
+    $id = filter_input(INPUT_POST, 'txtid');
     $nome = filter_input(INPUT_POST, 'txtnome', FILTER_SANITIZE_SPECIAL_CHARS);
     $cidade = filter_input(INPUT_POST, 'txtcidade', FILTER_SANITIZE_SPECIAL_CHARS);
     
     include_once '../models/Fornecedor.php';
 
     $forn = new Fornecedor();
-    $forn->setId(NULL);
+    $forn->setId($id);
     $forn->setNome($nome);
     $forn->setCidade($cidade);
 

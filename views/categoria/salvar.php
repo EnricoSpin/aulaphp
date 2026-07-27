@@ -84,13 +84,13 @@
         include_once '../models/Categoria.php'; //Ver a classe
         $cat = new Categoria(); //Acessar oq é publico na classe
         //enviando os dados do form aos atributos da classe
-        $cat->setId($id);
+        $cat->setId(NULL);
         $cat->setNome($nome);
         $cat->setInformacoes($info);
         // form -> vars -> sets -> atributos
 
         //efetivar o insert into (salvar)
-        if($cat->salvar()) { //'->' acessar métodos ou propriedades de um objeto
+        if($cat->inserir()) { //'->' acessar métodos ou propriedades de um objeto
         ?>
             <div class="alert alert-primary mt-3" role="alert">
                 Categoria - cadastro efetuado com sucesso

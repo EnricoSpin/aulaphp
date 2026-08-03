@@ -6,7 +6,7 @@
         $cli = new Cliente();
         $cli->setId($id);
 
-        if ($cli->excluir()) {
+        if ($cli->crudPhp('E')) {
     ?>
             <div class="alert alert-primary" role="alert">
                 Excluído com sucesso

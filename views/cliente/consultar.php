@@ -21,7 +21,7 @@
                     <?php
                     include_once '../models/Cliente.php';
                     $cli = new Cliente();
-                    $dados = $cli->listar(null);
+                    $dados = $cli->listarSemProcedure();
                     foreach($dados as $mostrar) {
                     ?>
                     <tr>

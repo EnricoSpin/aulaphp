@@ -20,7 +20,7 @@
                     <?php
                     include_once '../models/Fornecedor.php';
                     $forn = new Fornecedor();
-                    $dados = $forn->listar(null);
+                    $dados = $forn->listarSemProcedure();
                     foreach($dados as $mostrar) {
                     ?>
                     <tr>

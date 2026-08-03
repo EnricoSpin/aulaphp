@@ -43,11 +43,11 @@ if(filter_input(INPUT_POST, 'btnsalvar')){
     include_once '../models/Fornecedor.php';
 
     $forn = new Fornecedor();
-    $forn->setId($id);
+    $forn->setId(NULL);
     $forn->setNome($nome);
     $forn->setCidade($cidade);
 
-    if($forn->salvar()){
+    if($forn->inserir()){
 ?>
         <div class="alert alert-primary mt-3">Fornecedor cadastrado com sucesso</div>
         <meta http-equiv="refresh" content="0.2;URL=?p=fornecedores">

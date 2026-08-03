@@ -101,7 +101,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome";
+            $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
             $executar = $this->conn->prepare($sql);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
@@ -137,20 +137,20 @@ class Categoria
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
                             SET nome = ?
-                                informacoes = ?
-                            WHERE id = ?"
+                            informacoes = ?
+                            WHERE id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
                     $executar->bindValue(2, mb_strtoupper($this->informacoes));
-                    $executar->bindValue(3, $this->id)
-                    break
+                    $executar->bindValue(3, $this->id);
+                    break;
 
                 case 'E':
                     $sql = "DELETE FROM {$this->tabela}
-                            WHERE id = ?"
+                            WHERE id = ?";
                     $executar = $this->conn->prepare($sql);
                     $executar->bindValue(1, $this->id);
-                    break
+                    break;
 
                 default:
                     return false;

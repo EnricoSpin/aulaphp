@@ -45,6 +45,9 @@ class Fornecedor {
         }
     }
 
+
+    //métodos sem procedure
+
     public function excluir()
     {
         try {
@@ -56,6 +59,63 @@ class Fornecedor {
         } catch (PDOException $erro) {
             echo $erro->getMessage();
         }
-    }    
+    }  
+    
+     public function inserir()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "INSERT INTO {$this->tabela} VALUES (?, ?, ?)";
+            $executar = $this->conn->prepare($sql);
+            $executar->bindValue(1, $this -> id);
+            $executar->bindValue(2, mb_strtoupper($this->nome));
+            $executar->bindValue(3, mb_strtoupper($this->informacoes));
+            return $executar->execute() == 1 ? true : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
+
+    public function alterar()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "UPDATE {$this->tabela}
+                    SET nome = ?, informacoes = ?
+                    WHERE id = ?";
+            $executar = $this->conn->prepare($sql);
+            $executar->bindValue(1, mb_strtoupper($this->nome));
+            $executar->bindValue(2, mb_strtoupper($this->informacoes));
+            $executar->bindValue(3, $this -> id);
+            return $executar->execute() == 1 ? true : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
+
+    public function listarSemProcedure()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome";
+            $executar = $this->conn->prepare($sql);
+            return $executar->execute() == 1 ? $executar->fetchAll() : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
+
+    public function consultarPorId()
+    {
+        try {
+            $this->conn = new Conn();
+            $sql = "SELECT * FROM {$this->tabela} WHERE id = ?";
+            $executar = $this->conn->prepare($sql);
+            $executar->bindValue(1, $this->id);
+            return $executar->execute() == 1 ? $executar->fetchAll() : false;
+        } catch (PDOException $erro) {
+            echo $erro->getMessage();
+        }
+    }
 }
 ?>

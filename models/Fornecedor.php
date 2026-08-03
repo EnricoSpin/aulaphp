@@ -32,7 +32,7 @@ class Fornecedor {
         }
     }
 
-    public function listar($var_id)
+    public function listar($id)
     {
         try {
             $this->conn = new Conn();
@@ -97,7 +97,7 @@ class Fornecedor {
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome";
+            $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
             $executar = $this->conn->prepare($sql);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
@@ -132,8 +132,7 @@ class Fornecedor {
 
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
-                            SET nome = ?
-                            cidade = ?
+                            SET nome = ?, cidade = ?
                             WHERE id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));

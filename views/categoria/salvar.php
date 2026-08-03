@@ -84,7 +84,7 @@
         include_once '../models/Categoria.php'; //Ver a classe
         $cat = new Categoria(); //Acessar oq é publico na classe
         //enviando os dados do form aos atributos da classe
-        $cat->setId(NULL);
+        $cat->setId($id);
         $cat->setNome($nome);
         $cat->setInformacoes($info);
         // form -> vars -> sets -> atributos

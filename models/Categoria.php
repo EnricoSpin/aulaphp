@@ -36,13 +36,13 @@ class Categoria
         }
     }
 
-     public function listar($var_id)
+     public function listar($id)
     {
         try {
             $this->conn = new Conn();
             $sql = "CALL listar_categoria(?)";
             $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $var_id);
+            $executar->bindValue(1, $id);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
             echo $erro->getMessage();
@@ -55,7 +55,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
+            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? true : false;
@@ -101,7 +101,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
+            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome";
             $executar = $this->conn->prepare($sql);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
@@ -136,8 +136,7 @@ class Categoria
 
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
-                            SET nome = ?
-                            informacoes = ?
+                            SET nome = ?, informacoes = ?
                             WHERE id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
@@ -154,7 +153,7 @@ class Categoria
 
                 default:
                     return false;
-            }
+            } return $executar->execute();
         } catch (PDOException $exc){
             echo $exc->getMessage();
         }

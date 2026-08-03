@@ -43,7 +43,7 @@ if(filter_input(INPUT_POST, 'btnsalvar')){
     include_once '../models/Fornecedor.php';
 
     $forn = new Fornecedor();
-    $forn->setId(NULL);
+    $forn->setId($id);
     $forn->setNome($nome);
     $forn->setCidade($cidade);
 

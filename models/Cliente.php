@@ -32,7 +32,7 @@ class Cliente{
         }
     }
 
-    public function listar($var_id)
+    public function listar($id)
     {
         try {
             $this->conn = new Conn();
@@ -51,7 +51,7 @@ class Cliente{
     {
         try {
             $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
+            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? true : false;
@@ -131,8 +131,7 @@ class Cliente{
 
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
-                            SET nome = ?
-                            email = ?
+                            SET nome = ?, email = ?
                             WHERE id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));

@@ -43,7 +43,7 @@ if(filter_input(INPUT_POST, 'btnsalvar')){
     include_once '../models/Cliente.php';
 
     $cli = new Cliente();
-    $cli->setId(NULL);
+    $cli->setId($id);
     $cli->setNome($nome);
     $cli->setEmail($email);
 

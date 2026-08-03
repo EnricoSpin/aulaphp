@@ -81,8 +81,8 @@ class Fornecedor {
         try {
             $this->conn = new Conn();
             $sql = "UPDATE {$this->tabela}
-                    SET nome = ?, cidade = ?
-                    WHERE id = ?";
+                    SET var_nome = ?, var_cidade = ?
+                    WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, mb_strtoupper($this->nome));
             $executar->bindValue(2, mb_strtoupper($this->cidade));
@@ -109,7 +109,7 @@ class Fornecedor {
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} WHERE id = ?";
+            $sql = "SELECT * FROM {$this->tabela} WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
@@ -124,7 +124,7 @@ class Fornecedor {
             switch ($opcao) {
                 case 'I':
                     $sql = "INSERT INTO {$this->tabela} 
-                        (nome, cidade) VALUES (?,?)";
+                        (var_nome, var_cidade) VALUES (?,?)";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
                     $executar->bindValue(2, mb_strtoupper($this->cidade));
@@ -132,8 +132,8 @@ class Fornecedor {
 
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
-                            SET nome = ?, cidade = ?
-                            WHERE id = ?";
+                            SET var_nome = ?, var_cidade = ?
+                            WHERE var_id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
                     $executar->bindValue(2, mb_strtoupper($this->cidade));
@@ -142,14 +142,14 @@ class Fornecedor {
 
                 case 'E':
                     $sql = "DELETE FROM {$this->tabela}
-                            WHERE id = ?";
+                            WHERE var_id = ?";
                     $executar = $this->conn->prepare($sql);
                     $executar->bindValue(1, $this->id);
                     break;
 
                 default:
                     return false;
-            }
+            } return $executar->execute();
         } catch (PDOException $exc){
             echo $exc->getMessage();
         }

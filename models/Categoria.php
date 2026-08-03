@@ -55,7 +55,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE id = ?";
+            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? true : false;
@@ -85,8 +85,8 @@ class Categoria
         try {
             $this->conn = new Conn();
             $sql = "UPDATE {$this->tabela}
-                    SET nome = ?, informacoes = ?
-                    WHERE id = ?";
+                    SET var_nome = ?, var_informacoes = ?
+                    WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, mb_strtoupper($this->nome));
             $executar->bindValue(2, mb_strtoupper($this->informacoes));
@@ -101,7 +101,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY nome";
+            $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
             $executar = $this->conn->prepare($sql);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
         } catch (PDOException $erro) {
@@ -113,7 +113,7 @@ class Categoria
     {
         try {
             $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} WHERE id = ?";
+            $sql = "SELECT * FROM {$this->tabela} WHERE var_id = ?";
             $executar = $this->conn->prepare($sql);
             $executar->bindValue(1, $this->id);
             return $executar->execute() == 1 ? $executar->fetchAll() : false;
@@ -128,7 +128,7 @@ class Categoria
             switch ($opcao) {
                 case 'I':
                     $sql = "INSERT INTO {$this->tabela} 
-                        (nome, informacoes) VALUES (?,?)";
+                        (var_nome, var_informacoes) VALUES (?,?)";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
                     $executar->bindValue(2, mb_strtoupper($this->informacoes));
@@ -136,8 +136,8 @@ class Categoria
 
                 case 'A':
                     $sql = "UPDATE {$this->tabela}
-                            SET nome = ?, informacoes = ?
-                            WHERE id = ?";
+                            SET var_nome = ?, var_informacoes = ?
+                            WHERE var_id = ?";
                     $executar=$this->conn->prepare($sql);
                     $executar->bindValue(1, mb_strtoupper($this->nome));
                     $executar->bindValue(2, mb_strtoupper($this->informacoes));
@@ -146,13 +146,14 @@ class Categoria
 
                 case 'E':
                     $sql = "DELETE FROM {$this->tabela}
-                            WHERE id = ?";
+                            WHERE var_id = ?";
                     $executar = $this->conn->prepare($sql);
                     $executar->bindValue(1, $this->id);
                     break;
 
                 default:
                     return false;
+
             } return $executar->execute();
         } catch (PDOException $exc){
             echo $exc->getMessage();

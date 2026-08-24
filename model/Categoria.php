@@ -16,8 +16,9 @@ class Categoria
         return $this->id;
         }
         
-    public function setId(?int $id): self  //self indica que não tem , só o get retorna 
+    public function setId(?int $id): self  //O método retorna um objeto da própria classe. 
     {
+        //$this é o próprio objeto
         $this->id = $id;
         return $this;
         }

@@ -15,7 +15,7 @@ class CategoriaDAO
 
     public function __construct()
     {
-        $this->conn = new Conn()
+        $this->conn = new Conn()    
     }
 
     private function texto(string $texto): string //auxilio para cadastrar um texto e devolve uma string

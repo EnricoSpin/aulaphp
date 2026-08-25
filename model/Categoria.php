@@ -1,7 +1,7 @@
 <?php //não precisa fechar quando só tem php
 
 //exige/obriga a tipificação dos atributos e métodos (pode cair na prova)
-declare(stric_types=1)
+declare(strict_types=1)
 
 class Categoria
 {

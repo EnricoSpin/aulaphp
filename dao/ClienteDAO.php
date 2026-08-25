@@ -1,137 +1,78 @@
 <?php 
 
-    public function salvar() {
-        try {
-            $this->conn = new Conn();
-            $sql = "CALL salvar_cliente(?, ?, ?)";
-            $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $this->id);
-            $executar->bindValue(2, mb_strtoupper($this->nome));
-            $executar->bindValue(3, mb_strtoupper($this->email));
-            return $executar->execute() == 1 ? true : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
+declare(strict_types=1);
+
+require_once "../model/Conn.php";
+require_once "../model/Cliente.php";
+
+class ClienteDAO 
+{
+    private PDO $conn;
+
+    private string $tabela = "cliente";
+
+    public function __construct() //conexão
+    {
+        $this->conn = new Conn()
     }
 
-    public function listar($id)
+    private function texto(string $texto): string
     {
-        try {
-            $this->conn = new Conn();
-            $sql = "CALL listar_cliente(?)";
-            $executar = $this->conn->prepare($sql);
-            $executar -> bindValue(1, $var_id);
-            return $executar->execute() == 1 ? $executar->fetchAll() : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
-    }
-
-    //métodos sem procedure
-
-    public function excluir()
-    {
-        try {
-            $this->conn = new Conn();
-            $sql = "DELETE FROM {$this->tabela} WHERE var_id = ?";
-            $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $this->id);
-            return $executar->execute() == 1 ? true : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
+        return mb_strtoupper(trim($texto));
     }
     
-     public function inserir()
+     public function salvar(Cliente $cliente): bool
     {
-        try {
-            $this->conn = new Conn();
-            $sql = "INSERT INTO {$this->tabela} VALUES (?, ?, ?)";
-            $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $this -> id);
-            $executar->bindValue(2, mb_strtoupper($this->nome));
-            $executar->bindValue(3, mb_strtoupper($this->email));
-            return $executar->execute() == 1 ? true : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
+        if ($cliente->getId() == null) {
+
+            $sql = "INSERT INTO cliente (nome, email) VALUES (?, ?)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(1, $this->texto($cliente->getNome()));
+            $stmt->bindValue(2, $this->texto($cliente->getEmail()));
+        } else{
+
+            $sql = "UPDATE cliente SET nome = ?, email = ? WHERE id = ?"
+
+            $stmt = $this->conn->prepare($sql)
+            $stmt->bindValue(1, $this->texto($cliente->getNome()));
+            $stmt->bindValue(2, $this->texto($cliente->getEmail()));
+            $stmt->bindValue(3, $cliente->getId());
         }
+        return $stmt->execute();
     }
 
-    public function alterar()
+    public function listar(): array
     {
-        try {
-            $this->conn = new Conn();
-            $sql = "UPDATE {$this->tabela}
-                    SET var_nome = ?, var_email = ?
-                    WHERE var_id = ?";
-            $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, mb_strtoupper($this->nome));
-            $executar->bindValue(2, mb_strtoupper($this->email));
-            $executar->bindValue(3, $this -> id);
-            return $executar->execute() == 1 ? true : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
+        $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
+        $executar = $this->conn->query($sql);
+        return $executar->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function listarSemProcedure()
+    public function consultarPorId(int $id): ?Cliente
     {
-        try {
-            $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} ORDER BY var_nome";
-            $executar = $this->conn->prepare($sql);
-            return $executar->execute() == 1 ? $executar->fetchAll() : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
-    }
+        $sql = "SELECT * FROM {$this->tabela} WHERE var_id = ?";
+        $executar->bindValue(1, $id);
+        $executar->execute();
+        $dados = $executar->fetch(PDO::FETCH_ASSOC);
 
-    public function consultarPorId()
+        if (!$dados){
+            return null;
+        }
+
+        $cliente = new Cliente();
+        $cliente->setId($dados["id"]);
+        $cliente->setNome($dados["nome"]);
+        $cliente->setEmail($dados[email]);
+
+        return $cliente;
+    }
+    
+    public function excluir(int $id): bool
     {
-        try {
-            $this->conn = new Conn();
-            $sql = "SELECT * FROM {$this->tabela} WHERE var_id = ?";
-            $executar = $this->conn->prepare($sql);
-            $executar->bindValue(1, $this->id);
-            return $executar->execute() == 1 ? $executar->fetchAll() : false;
-        } catch (PDOException $erro) {
-            echo $erro->getMessage();
-        }
-    }
-
-    public function crudPhp($opcao) {
-        try{
-            $this->conn = new Conn();
-            switch ($opcao) {
-                case 'I':
-                    $sql = "INSERT INTO {$this->tabela} 
-                        (var_nome, var_email) VALUES (?,?)";
-                    $executar=$this->conn->prepare($sql);
-                    $executar->bindValue(1, mb_strtoupper($this->nome));
-                    $executar->bindValue(2, mb_strtoupper($this->email));
-                    break;
-
-                case 'A':
-                    $sql = "UPDATE {$this->tabela}
-                            SET var_nome = ?, var_email = ?
-                            WHERE var_id = ?";
-                    $executar=$this->conn->prepare($sql);
-                    $executar->bindValue(1, mb_strtoupper($this->nome));
-                    $executar->bindValue(2, mb_strtoupper($this->email));
-                    $executar->bindValue(3, $this->id);
-                    break;
-
-                case 'E':
-                    $sql = "DELETE FROM {$this->tabela}
-                            WHERE var_id = ?";
-                    $executar = $this->conn->prepare($sql);
-                    $executar->bindValue(1, $this->id);
-                    break;
-
-                default:
-                    return false;
-            } return $executar->execute();
-        } catch (PDOException $exc){
-            echo $exc->getMessage();
-        }
+        $sql = "DELETE FROM {$this->tabela} ORDER BY var_nome";
+        $executar = $this->conn->prepare($sql);
+        $executar->bindValue(1, $id);
+        return $executar->execute();
     }    
+}
